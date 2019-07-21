@@ -144,14 +144,15 @@ class Ship {
         //flip ship when cross the border
         if (this.x < this.radius) {
             this.x = canvas.width;
-        } else if (this.x > canvas.width) {
-            this.x = canvas.radius;
         }
-
+        if (this.x > canvas.width) {
+            this.x = this.radius;
+        }
         if (this.y < this.radius) {
             this.y = canvas.height;
-        } else if (this.y > canvas.height) {
-            this.y = canvas.radius;
+        }
+        if (this.y > canvas.height) {
+            this.y = this.radius;
         }
 
         // if keyUp - slow down, keyDown faster
@@ -167,7 +168,7 @@ class Ship {
         ctx.strokeStyle = this.strokeColor;
         //start drawing
 
-        const vertAngel = (Math.PI * 2) / 3
+        const vertAngel = ((Math.PI * 2) / 3)
         const radians = this.angle / Math.PI * 180;
 
         // Nose where to fire bullet from
@@ -182,7 +183,7 @@ class Ship {
         ctx.beginPath();
         ctx.lineWidth = 3;
 
-
+        
         for (let i = 0; i < 3; i++) {
 
             const xLineTo = this.x - this.radius * Math.cos(vertAngel * i + radians);
@@ -191,10 +192,6 @@ class Ship {
         }
         ctx.closePath();
         ctx.stroke();
-
-        //ctx.fillRect(0, 0, 150, 150);
-
-
     }
 }
 
@@ -213,8 +210,16 @@ Render = () => {
     //and clear the screen finally
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
-    ship.Update();
-    ship.Draw()
+    // Display score
+    ctx.fillStyle = 'white';
+    ctx.font = '21px Arial';
+    ctx.fillText("SCORE : " + score.toString(), 20, 35);
+
+
+    if(ship.visible){
+        ship.Update();
+        ship.Draw();
+    }
 
     if (bullets.length !== 0) {
         for (let i = 0; i < bullets.length; i++) {
