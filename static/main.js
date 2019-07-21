@@ -1,7 +1,7 @@
 let canvas;
 let ctx;
-const canvasWidth = 600;
-const canvasHeight = 600;
+const canvasWidth = 1200;
+const canvasHeight = 650;
 
 let ship;
 let key = []
@@ -27,6 +27,8 @@ function InitCanvas() {
         if (e.keyCode === 32) { //keycode of the space-bar
             bullets.push(new Bullet(ship.angle));
         }
+        console.log(e.keyCode);
+        
     });
 
     document.body.addEventListener("keyup", (e) => {
@@ -197,13 +199,13 @@ class Ship {
 
 Render = () => {
     // console.log('Render');
-    // check if it's moving forward - "w" - code is 
-    ship.movingForward = key[87];
+    // check if it's moving forward - arrow up - code is 
+    ship.movingForward = key[38];
 
-    if (key[68]) { //d - rotate - clockwise
+    if (key[39]) { //right arrow - rotate - clockwise
         ship.Rotate(1);
     }
-    if (key[65]) { //a - rotate opposite clock
+    if (key[37]) { //left arrow - rotate anticlockwise clock
         ship.Rotate(-1);
     }
 
